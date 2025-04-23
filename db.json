@@ -1,0 +1,74 @@
+{
+    "users": [
+        {
+            "id": 1,
+            "name": "John Doe",
+            "gender": 0,
+            "email": "john@gmail.com",
+            "phone": "0978767651"
+        },
+        {
+            "id": 2,
+            "name": "Jane Smith",
+            "gender": 1,
+            "email": "jane.smith@gmail.com",
+            "phone": "0961234567"
+        },
+        {
+            "id": 3,
+            "name": "Mike Johnson",
+            "gender": 0,
+            "email": "mike.johnson@gmail.com",
+            "phone": "0912345678"
+        },
+        {
+            "id": 4,
+            "name": "Emily Davis",
+            "gender": 1,
+            "email": "emily.davis@gmail.com",
+            "phone": "0909876543"
+        },
+        {
+            "id": 5,
+            "name": "David Wilson",
+            "gender": 0,
+            "email": "david.wilson@gmail.com",
+            "phone": "0932123456"
+        },
+        {
+            "id": 6,
+            "name": "Sophia Martinez",
+            "gender": 1,
+            "email": "sophia.martinez@gmail.com",
+            "phone": "0987654321"
+        },
+        {
+            "id": 7,
+            "name": "Chris Brown",
+            "gender": 0,
+            "email": "chris.brown@gmail.com",
+            "phone": "0971234567"
+        },
+        {
+            "id": 8,
+            "name": "Olivia Taylor",
+            "gender": 1,
+            "email": "olivia.taylor@gmail.com",
+            "phone": "0923456789"
+        },
+        {
+            "id": 9,
+            "name": "Daniel Anderson",
+            "gender": 0,
+            "email": "daniel.anderson@gmail.com",
+            "phone": "0954321987"
+        },
+        {
+            "id": 10,
+            "name": "Isabella Thomas",
+            "gender": 1,
+            "email": "isabella.thomas@gmail.com",
+            "phone": "0943219876"
+        }
+    ]
+}
