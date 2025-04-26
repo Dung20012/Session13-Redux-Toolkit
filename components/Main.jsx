@@ -4,9 +4,11 @@ import axios from 'axios';
 export default function TodoApp() {
     const [todos, setTodos] = useState([]);
     const [newTodo, setNewTodo] = useState('');
+    const [editedTodo, setEditedTodo] = useState('');
     const [error, setError] = useState('');
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
     const [todoToDelete, setTodoToDelete] = useState(null);
+    const [todoToEdit, setTodoToEdit] = useState(null);  // Lưu công việc cần sửa
 
     // Lấy dữ liệu từ db.json khi load trang
     useEffect(() => {
@@ -49,6 +51,27 @@ export default function TodoApp() {
             setError('');
         } catch (err) {
             console.error('Lỗi khi thêm công việc:', err);
+        }
+    };
+
+    const handleEditTodo = async (e) => {
+        e.preventDefault();
+
+        if (!editedTodo.trim()) {
+            setError('Tên công việc không được phép để trống');
+            return;
+        }
+
+        try {
+            const updatedTodo = { text: editedTodo };
+            const res = await axios.put(`http://localhost:3001/todos/${todoToEdit.id}`, updatedTodo);
+
+            // Cập nhật lại danh sách todos sau khi sửa
+            setTodos(todos.map(todo => (todo.id === todoToEdit.id ? res.data : todo)));
+            setEditedTodo('');
+            setTodoToEdit(null);
+        } catch (err) {
+            console.error('Lỗi khi cập nhật công việc:', err);
         }
     };
 
@@ -134,6 +157,10 @@ export default function TodoApp() {
                                                             <i
                                                                 className="fas fa-pen-to-square text-warning"
                                                                 style={{ cursor: 'pointer' }}
+                                                                onClick={() => {
+                                                                    setTodoToEdit(todo);
+                                                                    setEditedTodo(todo.text); // Set công việc cần sửa vào ô input
+                                                                }}
                                                             />
                                                             <i
                                                                 className="far fa-trash-can text-danger"
@@ -149,6 +176,27 @@ export default function TodoApp() {
                                             </ul>
                                         </div>
                                     </div>
+
+                                    {/* Form sửa công việc nếu đang chỉnh sửa */}
+                                    {todoToEdit && (
+                                        <form className="d-flex justify-content-center align-items-center mb-4" onSubmit={handleEditTodo}>
+                                            <div className="form-outline flex-fill">
+                                                <input
+                                                    type="text"
+                                                    id="editForm"
+                                                    className="form-control"
+                                                    value={editedTodo}
+                                                    onChange={(e) => setEditedTodo(e.target.value)}
+                                                />
+                                                <label className="form-label" htmlFor="editForm">
+                                                    Chỉnh sửa công việc
+                                                </label>
+                                            </div>
+                                            <button type="submit" className="btn btn-warning ms-2">
+                                                Cập nhật
+                                            </button>
+                                        </form>
+                                    )}
 
                                 </div>
                             </div>
