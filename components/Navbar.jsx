@@ -26,7 +26,7 @@ export default function Navbar() {
                 />
                <Main />
                 {/* Modal xác nhận xóa */}
-                <div className="overlay" hidden="">
+                {/* <div className="overlay" hidden="">
                     <div className="modal-custom">
                         <div className="modal-header-custom">
                             <h5>Xác nhận</h5>
@@ -40,9 +40,9 @@ export default function Navbar() {
                             <button className="btn btn-danger">Xóa</button>
                         </div>
                     </div>
-                </div>
+                </div> */}
                 {/* Modal cảnh báo lỗi */}
-                <div className="overlay" hidden="">
+                {/* <div className="overlay" hidden="">
                     <div className="modal-custom">
                         <div className="modal-header-custom">
                             <h5>Cảnh báo</h5>
@@ -55,7 +55,7 @@ export default function Navbar() {
                             <button className="btn btn-light">Đóng</button>
                         </div>
                     </div>
-                </div>
+                </div> */}
                 {/* MDB */}
             </>
 
