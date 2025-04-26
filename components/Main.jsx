@@ -5,6 +5,8 @@ export default function TodoApp() {
     const [todos, setTodos] = useState([]);
     const [newTodo, setNewTodo] = useState('');
     const [error, setError] = useState('');
+    const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+    const [todoToDelete, setTodoToDelete] = useState(null);
 
     // Lấy dữ liệu từ db.json khi load trang
     useEffect(() => {
@@ -47,6 +49,18 @@ export default function TodoApp() {
             setError('');
         } catch (err) {
             console.error('Lỗi khi thêm công việc:', err);
+        }
+    };
+
+    // Xử lý xác nhận xóa công việc
+    const handleConfirmDelete = async () => {
+        try {
+            await axios.delete(`http://localhost:3001/todos/${todoToDelete}`);
+            setIsDeleteModalOpen(false);
+            setTodoToDelete(null);
+            fetchTodos(); // Gọi lại API để load lại danh sách công việc
+        } catch (err) {
+            console.error('Lỗi khi xóa công việc:', err);
         }
     };
 
@@ -124,6 +138,10 @@ export default function TodoApp() {
                                                             <i
                                                                 className="far fa-trash-can text-danger"
                                                                 style={{ cursor: 'pointer' }}
+                                                                onClick={() => {
+                                                                    setIsDeleteModalOpen(true);
+                                                                    setTodoToDelete(todo.id);
+                                                                }}
                                                             />
                                                         </div>
                                                     </li>
@@ -138,6 +156,29 @@ export default function TodoApp() {
                     </div>
                 </div>
             </section>
+
+            {/* Modal xác nhận xóa */}
+            {isDeleteModalOpen && (
+                <div className="overlay">
+                    <div className="modal-custom">
+                        <div className="modal-header-custom d-flex justify-content-between align-items-center">
+                            <h5>Xác nhận</h5>
+                            <i
+                                className="fas fa-xmark"
+                                style={{ cursor: "pointer" }}
+                                onClick={() => setIsDeleteModalOpen(false)}
+                            />
+                        </div>
+                        <div className="modal-body-custom">
+                            <p>Bạn chắc chắn muốn xóa công việc này?</p>
+                        </div>
+                        <div className="modal-footer-custom d-flex justify-content-end gap-2">
+                            <button className="btn btn-light" onClick={() => setIsDeleteModalOpen(false)}>Hủy</button>
+                            <button className="btn btn-danger" onClick={handleConfirmDelete}>Xác nhận</button>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }
